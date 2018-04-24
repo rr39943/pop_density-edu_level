@@ -1,0 +1,4 @@
+*.pyc
+/data/**
+/.snakemake/**
+/tests/test_data/**

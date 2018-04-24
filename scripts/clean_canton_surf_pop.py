@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys
+import os
 sys.path.append('scripts/lib')
 from clean_utils import cleanUtils
 
@@ -22,6 +23,8 @@ def create_csv_file(file_name_source, file_name_dest):
     df['PopBySurfHabAndInf'] = df['PopTotal'] / df['SurfHabAndInf']
     df['PopBySurfTotal'] = df['PopTotal'] / df['SurfTotal']
 
+    if not(os.path.isdir(os.path.dirname(file_name_dest))):
+        os.makedirs(os.path.dirname(file_name_dest))
 
     df.to_csv(file_name_dest, index=False)
 

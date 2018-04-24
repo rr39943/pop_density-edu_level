@@ -44,7 +44,6 @@ rule combine_csv_files:
         "python scripts/build_dataframe.py {input[0]} {input[1]} {output}"
 
 
-
 rule create_chart:
     input:
         "data/processed_data/cantons_surf_pop_edu.csv",
@@ -72,8 +71,8 @@ rule create_report:
 
 rule clean:
     shell:
-        """rm data/processed_data/*
-           rm data/intermediate_data/*"""
+        """rm -f data/processed_data/*
+           rm -f data/intermediate_data/*"""
 
 rule rulegraph:
     shell:

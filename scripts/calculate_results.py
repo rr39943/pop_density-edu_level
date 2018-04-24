@@ -1,4 +1,5 @@
 import sys
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -37,6 +38,10 @@ def create_report(file_name_source, file_name_dest):
     txt += pearson_corr(df['RatPopUnivLevel'], df['SurfHabAndInf'])
 
     txt += """____\n\n![chart](./data/processed_data/chart.png)"""
+
+    if not(os.path.isdir(os.path.dirname(file_name_dest))):
+        os.makedirs(os.path.dirname(file_name_dest))
+
     # create report file
     with open(file_name_dest, 'w') as f:
         f.write(txt)

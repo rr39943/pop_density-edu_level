@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import sys
 sys.path.append('scripts/lib')
 
@@ -13,6 +14,9 @@ def create_csv_file(file_name_source_1, file_name_source_2, file_name_dest):
     df = df1.merge(df2, on='Cantons')
 
     df['RatPopUnivLevel'] = df['UnivEdu'] / df['PopTotal']
+
+    if not(os.path.isdir(os.path.dirname(file_name_dest))):
+        os.makedirs(os.path.dirname(file_name_dest))
 
     df.to_csv(file_name_dest, index=False)
 

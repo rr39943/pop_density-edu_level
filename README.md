@@ -8,8 +8,7 @@ between population density and percent of people that have a University or equiv
 diploma.
 
 ## Prerequisites
-* Standard version of python 3.6 with the libraries stated in [requirements.txt](./requirements.txt).
-* Matplotlib (install with "sudo apt-get install python3-matplotlib" on Linux)
+Standard version of python 3.6 with the libraries stated in [requirements.txt](./requirements.txt).
 
 ## Usage
 * Build processed data: run the Snakefile with command "snakemake"

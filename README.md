@@ -13,7 +13,9 @@ diploma.
 * Clean the "intermidate_data" and "processed_data" with command "snakemake clean"
 * Launch the tests with command "python -m unittest"
 
-<center>![rules](./documentation/rulegraph.png)</center>
+**Snakemake Rules:**
+
+![rules](/documentation/rulegraph.png)
 
 ## Data description
 * List of files: [files_description.md](documentation/files_description.md)

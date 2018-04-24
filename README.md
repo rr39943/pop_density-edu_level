@@ -1,6 +1,8 @@
 # Population density and education level correlation
 
-This repository analyse data from Swiss cantons to determine if a correlation exists
+[![Build Status](https://travis-ci.org/rr39943/pop_density-edu_level.svg?branch=master)](https://travis-ci.org/rr39943/pop_density-edu_level)
+
+This repository is a test repository to analyse and test best practices in data management. It analyses data from Swiss cantons to determine if a correlation exists
 between population density and percent of people that have a University or equivalent
 diploma.
 

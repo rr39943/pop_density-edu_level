@@ -18,6 +18,7 @@ def create_csv_file(file_name_source, file_name_dest):
                        names=['Cantons', 'UnivEdu'])
     df['Cantons'] = df['Cantons'].apply(cleanUtils.canton_name_to_abbreviation)
 
+    # Test if destination folder exists, if not creates it
     if not(os.path.isdir(os.path.dirname(file_name_dest))):
         os.makedirs(os.path.dirname(file_name_dest))
 

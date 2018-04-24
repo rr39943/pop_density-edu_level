@@ -18,7 +18,7 @@ def pearson_corr(serie_1, serie_2):
 * Risk error: **{} %** \n\n""".format(serie_1.name,
                              serie_2.name,
                              np.around(p_corr[0], 3),
-                             np.around(p_corr[1]*100, 3))
+                             np.around(p_corr[1]*100, 4))
     return txt
 
 
@@ -37,10 +37,11 @@ def create_report(file_name_source, file_name_dest):
 
     txt += pearson_corr(df['RatPopUnivLevel'], df['PopBySurfTotal'])
 
-    txt += pearson_corr(df['RatPopUnivLevel'], df['SurfHabAndInf'])
+    txt += pearson_corr(df['RatPopUnivLevel'], df['PopBySurfHabAndInf'])
 
     txt += """____\n\n![chart](./data/processed_data/chart.png)"""
 
+    # Test if destination folder exists, if not creates it
     if not(os.path.isdir(os.path.dirname(file_name_dest))):
         os.makedirs(os.path.dirname(file_name_dest))
 
@@ -49,59 +50,50 @@ def create_report(file_name_source, file_name_dest):
         f.write(txt)
     # print(RatPopUnivLevel_PopBySurfTotal, RatPopUnivLevel_SurfHabAndInf)
 
+def create_subplot(**kwargs):
+    """
+    Create one subplot.
+    """
+    line_label = 'Part of pop. with university diploma'
+    kwargs['graph'].set_title(kwargs['chart_title'])
+    bars = kwargs['graph'].bar(range(26), kwargs['df'].iloc[:,-1].values, color='blue', width=0.6, alpha=0.5)
+    kwargs['graph'].set_xticks(range(26))
+    kwargs['graph'].set_xticklabels(kwargs['df']['Cantons'].values)
+    ax_bis = kwargs['graph'].twinx()
+    line = ax_bis.plot(range(26), kwargs['df']['RatPopUnivLevel'].values, color='r', linewidth=3)
+    kwargs['graph'].set_xlabel('Cantons')
+    kwargs['graph'].set_ylabel(kwargs['bars_label'])
+    ax_bis.set_ylabel(line_label)
+    ax_bis.set_ylim(ymin=0)
+    ax_bis.set_yticklabels(['{:2.0f}%'.format(x*100) for x in ax_bis.get_yticks()])
+    plt.legend((bars[0], line[0]), (kwargs['bars_label'], line_label))
+
 
 def create_chart(file_name_source, file_name_dest):
     """
     Create a chart with the population of canton by km2 and the part of the population
     with a university diploma.
     """
-    chart_title = 'Comparison: size of canton and pop. with university diploma'
-    line_label = 'Part of pop. with university diploma'
-    bars_label = 'Pop. by km2'
-
-    df = pd.read_csv(file_name_source)
-    df = df.sort_values(by='PopBySurfTotal', ascending=False)
 
     # Sort the row by pop. density
-    df1 = df.sort_values(by='PopBySurfTotal', ascending=False).copy()
-    df2 = df.sort_values(by='PopBySurfHabAndInf', ascending=False).copy()
-
-    chart_title1 = 'Comparison: density pop. vs part of pop. with university diploma'
-    chart_title2 = 'Comparison: density pop. (habitable and infrastructure part) vs part of pop. with university diploma'
-    line_label = 'Part of pop. with university diploma'
-    bars_label1 = 'Pop. by km2'
-    bars_label2 = 'Pop. by km2 (habitable and infrastructure)'
+    df1 = pd.read_csv(file_name_source).sort_values(by='PopBySurfTotal', ascending=False).copy()
+    df2 = df1.copy().sort_values(by='PopBySurfHabAndInf', ascending=False)
 
     fig = plt.figure(figsize=(12, 12))
-    ax1 = fig.add_subplot(211)
-    ax1.set_title(chart_title1)
-    bars1 = ax1.bar(range(26), df1['PopBySurfTotal'].values, color='blue', width=0.6, alpha=0.5, label=bars_label)
-    ax1.set_xticks(range(26))
-    ax1.set_xticklabels(df1['Cantons'].values)
-    ax2 = ax1.twinx()
-    line1 = ax2.plot(range(26), df1['RatPopUnivLevel'].values, color='r', linewidth=3, label=line_label)
-    ax1.set_xlabel('Cantons')
-    ax1.set_ylabel(bars_label1)
-    ax2.set_ylabel(line_label)
-    ax2.set_ylim(ymin=0)
-    vals = ax2.get_yticks()
-    ax2.set_yticklabels(['{:2.0f}%'.format(x*100) for x in vals])
-    plt.legend((bars1[0], line1[0]), (bars_label1, line_label))
 
-    ax3 = fig.add_subplot(212)
-    ax3.set_title(chart_title2)
-    bars2 = ax3.bar(range(26), df2['PopBySurfHabAndInf'].values, color='blue', width=0.6, alpha=0.5, label=bars_label)
-    ax3.set_xticks(range(26))
-    ax3.set_xticklabels(df2['Cantons'].values)
-    ax4 = ax3.twinx()
-    line2 = ax4.plot(range(26), df2['RatPopUnivLevel'].values, color='r', linewidth=3, label=line_label)
-    ax3.set_xlabel('Cantons')
-    ax3.set_ylabel(bars_label2)
-    ax4.set_ylabel(line_label)
-    ax4.set_ylim(ymin=0)
-    vals = ax4.get_yticks()
-    ax4.set_yticklabels(['{:2.0f}%'.format(x*100) for x in vals])
-    plt.legend((bars1[0], line1[0]), (bars_label2, line_label))
+    # First subplot
+    ax1 = fig.add_subplot(211)
+    ax1 = create_subplot(graph=ax1,
+                         df=df1.loc[:,['Cantons', 'RatPopUnivLevel', 'PopBySurfTotal']],
+                         bars_label = 'Pop. by km2',
+                         chart_title='Comparison: density pop. vs part of pop. with university diploma')
+
+    # Second subplot
+    ax2 = fig.add_subplot(212)
+    ax2 = create_subplot(graph=ax2,
+                         df=df2.loc[:,['Cantons', 'RatPopUnivLevel', 'PopBySurfHabAndInf']],
+                         bars_label='Pop. by km2 (habitable and infrastructure)',
+                         chart_title='Comparison: density pop. (habitable and infrastructure part) vs part of pop. with university diploma')
 
     plt.savefig(file_name_dest)
 

@@ -15,6 +15,7 @@ def create_csv_file(file_name_source_1, file_name_source_2, file_name_dest):
 
     df['RatPopUnivLevel'] = df['UnivEdu'] / df['PopTotal']
 
+    # Test if destination folder exists, if not creates it
     if not(os.path.isdir(os.path.dirname(file_name_dest))):
         os.makedirs(os.path.dirname(file_name_dest))
 

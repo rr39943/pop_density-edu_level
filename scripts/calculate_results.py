@@ -13,7 +13,11 @@ def pearson_corr(serie_1, serie_2):
     Caculate the pearson correlation of the two provided series and return a text
     to be integrated in the report.
     """
+
+    # Calculate the correlation
     p_corr = stats.pearsonr(serie_1.values, serie_2.values)
+
+    # Prepare the report
     txt = """___\n\nPearson correlation between *{}* and *{}*: **{}**\n
 * Risk error: **{} %** \n\n""".format(serie_1.name,
                              serie_2.name,

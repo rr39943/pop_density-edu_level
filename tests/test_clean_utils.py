@@ -8,7 +8,7 @@ class TestCleanUtils(unittest.TestCase):
     def test_read_json(self):
         """
         Switzerland has 26 cantons but the json has more keys (orthographcical variations). Check if
-        the object returned has 28 keys.
+        the object returned has 47 keys.
         """
         self.assertEqual(len(cleanUtils._read_json('abbreviated_cantons.json')), 47)
 

@@ -1,5 +1,5 @@
 *.pyc
-/data/processed_data/**
+# /data/processed_data/**
 /data/intermediate_data/**
 /.snakemake/**
 /tests/test_data/**

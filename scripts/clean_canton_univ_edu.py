@@ -16,6 +16,8 @@ def create_csv_file(file_name_source, file_name_dest):
                        skip_footer=10,
                        usecols=[2, 13],
                        names=['Cantons', 'UnivEdu'])
+
+    # Get digrams for the cantons
     df['Cantons'] = df['Cantons'].apply(cleanUtils.canton_name_to_abbreviation)
 
     # Test if destination folder exists, if not creates it

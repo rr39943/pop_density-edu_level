@@ -17,9 +17,14 @@ def create_csv_file(file_name_source, file_name_dest):
                        skip_footer=9,
                        usecols=[0, 5, 7, 9],
                        names=['Cantons', 'SurfHabAndInf', 'SurfTotal', 'PopTotal'])
+
+    # Get digrams for the cantons
     df['Cantons'] = df['Cantons'].apply(cleanUtils.canton_name_to_abbreviation)
+
+    # Convert ha to km2
     df['SurfHabAndInf'] = df['SurfHabAndInf'].apply(cleanUtils.convert_ha_to_km2)
     df['SurfTotal'] = df['SurfTotal'].apply(cleanUtils.convert_ha_to_km2)
+
     df['PopBySurfHabAndInf'] = df['PopTotal'] / df['SurfHabAndInf']
     df['PopBySurfTotal'] = df['PopTotal'] / df['SurfTotal']
 

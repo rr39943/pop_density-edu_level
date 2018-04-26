@@ -4,11 +4,11 @@
 [![codebeat badge](https://codebeat.co/badges/045ca497-dbff-4a7d-a45e-61569840ca5b)](https://codebeat.co/projects/github-com-rr39943-pop_density-edu_level-master)
 
 This repository is a test repository to analyse and test best practices in data management. It analyses data from Swiss cantons to determine if a correlation exists
-between population density and percent of people that have a University or equivalent
-diploma.
+between population density and the share of population holding a university degree or equivalent.
 
 ## Prerequisites
-Standard version of python 3.6 with the libraries stated in [requirements.txt](./requirements.txt).
+* Standard version of python 3.6
+* Python libraries listed in [requirements.txt](./requirements.txt).
 
 ## Installation
 
@@ -21,9 +21,9 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-* Build processed data: run the Snakefile with command "snakemake"
-* Clean the "intermidate_data" and "processed_data" with command "snakemake clean"
-* Launch the tests with command "python -m unittest"
+* To build processed data, run the Snakefile with command "snakemake"
+* To clean the "intermidate_data" and "processed_data", you may use command "snakemake clean"
+* To launch the tests, use command "python -m unittest"
 
 **Snakemake Rules:**
 

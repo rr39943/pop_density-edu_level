@@ -10,6 +10,16 @@ diploma.
 ## Prerequisites
 Standard version of python 3.6 with the libraries stated in [requirements.txt](./requirements.txt).
 
+## Installation
+
+Example of Linux installation with [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io):
+```
+mkvirtualenv demoData
+workon demoData
+git clone https://github.com/rr39943/pop_density-edu_level.git
+pip install -r requirements.txt
+```
+
 ## Usage
 * Build processed data: run the Snakefile with command "snakemake"
 * Clean the "intermidate_data" and "processed_data" with command "snakemake clean"

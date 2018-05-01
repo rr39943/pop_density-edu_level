@@ -14,4 +14,4 @@ Pearson correlation between *RatPopUnivLevel* and *PopBySurfHabAndInf*: **0.819*
 
 ____
 
-![chart](./data/processed_data/chart.png)
+![chart](./chart.png)

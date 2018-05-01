@@ -43,7 +43,7 @@ def create_report(file_name_source, file_name_dest):
 
     txt += pearson_corr(df['RatPopUnivLevel'], df['PopBySurfHabAndInf'])
 
-    txt += """____\n\n![chart](./data/processed_data/chart.png)"""
+    txt += """____\n\n![chart](./chart.png)"""
 
     # Test if destination folder exists, if not creates it
     if not(os.path.isdir(os.path.dirname(file_name_dest))):
